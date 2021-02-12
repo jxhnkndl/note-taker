@@ -46,6 +46,37 @@ app.post('/api/notes', (req, res) => {
   });
 });
 
+// ROUTE (API): Delete note
+app.delete('/api/notes/:id', (req, res) => {
+  
+  const id = req.params.id;
+  console.log('CHECKPOINT 1');
+
+  fs.readFile('db/db.json', (err, data) => {
+    if (err) throw err;
+
+    console.log('CHECKPOINT 2');
+
+    let savedNotes = JSON.parse(data);
+    
+    savedNotes.forEach((note, index) => {
+      if (note.id === id) {
+        savedNotes.splice(index, 1);
+        console.log('DELETED');
+      }
+    });
+
+    let updatedNotes = JSON.stringify(savedNotes, null, 2);
+    console.log('CHECKPOINT 4');
+
+
+    fs.writeFile('db/db.json', updatedNotes, (err) => {
+      if (err) throw err;
+      console.log('Database successfully updated.');
+    });
+  });
+});
+
 // ROUTE (HTML): /notes
 app.get('/notes', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/notes.html'));
