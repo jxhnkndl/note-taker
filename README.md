@@ -21,7 +21,7 @@ Visit the [live application](https://morning-ridge-84115.herokuapp.com/) on Hero
 
 
 ## Description
-Minimal Node.js and Express powered web application for writing, referencing, and storing notes. Includes a simple API and mini-database for performing basic CRUD operations.
+Minimal Node.js and Express powered web application for writing, referencing, and storing notes. Includes a mini-database for storing saved notes and simple API for performing basic CRUD operations.
 
 
 ## Technologies
@@ -39,7 +39,7 @@ npm -v
 ```
 If Node and npm are already installed, the commands above should return version numbers. Visit [Node.js](http://www.nodejs.org/) and [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) for full installation details and documentation.  
 
-The Note Taker requires the installation of `express`, `shortid`, and `nodemon` to run properly in a local dev environment. To install the project and its npm dependencies, navigate to the project's root directory and run:
+Note Taker also requires the installation of `express`, `shortid`, and `nodemon` from npm to run properly in a local dev environment. To install the project's npm dependencies, navigate to the project's root directory and run:
 ```
 npm install
 ```
@@ -51,14 +51,14 @@ To launch the application and start the server from a local dev environment, nav
 ```
 npm start
 ```
-Alternatively, running this `nodemon` script from the project's root directory will start the server and keep it listening for any changes to its source code (use `^C` to stop the server):
+Alternatively, running this `nodemon` script from the project's root directory will start the server, keep it listening for any changes made to its source code, and automatically restart the server once changes are detected (use `^C` to stop the server):
 ```
 npm run watch
 ```
 **Features:**
 * **Intuitive UI:** The application's semantic icons and simple layout make it easy to interact with.
 * **Built in API:** Support for creating and saving notes to the database, deleting notes from the database, and viewing all saved notes in JSON format. Support for updating existing notes coming soon.
-* **Self-Generated IDs:** Every saved note uses the **shortid** module to generate a unique alphanumeric id used for accessing and manipulating individual notes.
+* **Self-Generated IDs:** Every saved note uses the `shortid` module to generate a unique alphanumeric id used for accessing and manipulating individual notes.
 
 
 ## Application Demo
