@@ -8,68 +8,75 @@ const shortid = require('shortid');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware - Helps parse data
+// Middleware: Serve front-end 'public' directory to client statically
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Middleware: Assist in parsing data
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// ROUTE (API): Get all notes
+// GET ROUTE (API): Get all notes from database as JSON
 app.get('/api/notes', (req, res) => {
   // Read out saved notes from db.json and return to client as JSON
   const data = fs.readFileSync('db/db.json', 'utf-8');
   const savedNotes = JSON.parse(data);
-  res.json(savedNotes);
+  res.status(200).json(savedNotes);
 });
 
-// ROUTE (API): Save note with auto-generated id
+// POST ROUTE (API): Save note to database
 app.post('/api/notes', (req, res) => {
   // Extract the new note from the request and generate a unique id
   const newNote = req.body;
+
+  // Use shortid package to generate a new alphanumeric id property
   newNote.id = shortid.generate();
 
   // Read existing notes out of db.json
   fs.readFile('db/db.json', (err, data) => {
     if (err) throw err;
 
-    // Add the new note to the batch of saved notes
+    // Parse data extracting from db.json
     let savedNotes = JSON.parse(data);
+    // Add saved note to array of notes extracted from db.json
     savedNotes.push(newNote);
+    // Format saved notes to write back into db.json
     let updatedNotes = JSON.stringify(savedNotes, null, 2);
 
-    // Re-write db.json including the newly saved note
+    // Re-write saved notes back into db.json
     fs.writeFile('db/db.json', updatedNotes, (err) => {
       if (err) throw err;
 
       // Respond to the original request with the newly saved note
-      res.json(newNote);
+      res.status(201).json(newNote);
     });
   });
 });
 
-// ROUTE (API): Delete note
+// DELETE ROUTE (API): Delete note from database
 app.delete('/api/notes/:id', (req, res) => {
-  
+  // Extract the target note's id from the req object
   const id = req.params.id;
-  console.log('CHECKPOINT 1');
 
+  // Read existing notes out of db.json
   fs.readFile('db/db.json', (err, data) => {
     if (err) throw err;
 
-    console.log('CHECKPOINT 2');
-
+    // Parse data extracting from db.json
     let savedNotes = JSON.parse(data);
     
+    // Loop through saved notes, remove the target note, respond to client
     savedNotes.forEach((note, index) => {
       if (note.id === id) {
         savedNotes.splice(index, 1);
-        console.log('DELETED');
+        console.log('Resource deleted.');
+        res.status(204).json({ deleted: true });
       }
     });
 
+    // Format the updated notes to write back into db.json
     let updatedNotes = JSON.stringify(savedNotes, null, 2);
-    console.log('CHECKPOINT 4');
 
-
+    // Re-write notes back into db.json
     fs.writeFile('db/db.json', updatedNotes, (err) => {
       if (err) throw err;
       console.log('Database successfully updated.');
