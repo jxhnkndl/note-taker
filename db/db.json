@@ -1,17 +1,27 @@
 [
   {
-    "title": "From the UI!",
-    "text": "This note was written on the front-end.",
-    "id": "9B0gwpp44"
+    "title": "Submit Homework",
+    "text": "Include links to GitHub repo and deployed application on Heroku.",
+    "id": "VqM3aazlQ"
   },
   {
-    "title": "Here is a THIRD note!",
-    "text": "Yes.",
-    "id": "poLk6E6lD"
+    "title": "Unit 13 Reading",
+    "text": "Model-View-Controller, Separation of Concerns, Templating Engines.",
+    "id": "84ZdKynCG"
   },
   {
-    "title": "Replacement Note",
-    "text": "YEP",
-    "id": "lV-A2dWd3"
+    "title": "Test Note Taker",
+    "text": "Test HTML and API routes. Verify that no errors are being thrown in the console. Verify that db.json is updating properly.",
+    "id": "9O1xbFOML"
+  },
+  {
+    "title": "Pay Bills",
+    "text": "Rent, Credit Card, Car Insurance.",
+    "id": "Ec0P6BPZB"
+  },
+  {
+    "title": "Grocery List",
+    "text": "Eggs\nCoffee\nChicken\nFresh Produce\nVitamins",
+    "id": "yGs_WFPCS"
   }
 ]
